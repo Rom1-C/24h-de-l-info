@@ -1,0 +1,76 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\CharacterRepository")
+ */
+class Character
+{
+    
+     /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    public $id;//initialisation de l'attribut id
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    public $prenom;//initialisation de l'attribut prenom
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    public $age;//initialisation de l'attribut age
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    public $type;//initialisation de l'attribut type
+
+    public function getId(): ?int // on récupère l'attribut
+    {
+        return $this->id;
+    }
+
+    public function getPrenom(): ?string 
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self //affectation de la valeur reçue dans la variable(attribut) 
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): self
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+}
