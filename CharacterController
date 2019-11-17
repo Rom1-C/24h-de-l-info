@@ -1,0 +1,70 @@
+<?php
+// Romain Carré 1ère année
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;//Importation du nécessaire
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;	
+use App\Entity\Character;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
+class CharacterController extends AbstractController
+{
+
+	/**
+    * @Route("/character/{id}")
+    */
+
+    public function character($id)
+    {
+
+    	$encoders = [new XmlEncoder(), new JsonEncoder()];//définition du sérialiseur pour afficher l'objet
+		$normalizers = [new ObjectNormalizer()];	
+
+		$serializer = new Serializer($normalizers, $encoders);
+
+    	$prenoms = array("Myriam","Guylain","Amelie","Marc","Ocecour");
+    	$aleatoire = array_rand($prenoms);
+
+    	if ($id%2==1) {        //condition sur l'id
+
+    	$ages = array(1,50,24,58,28,2,65,987,56,71);
+    	$aleatoire2 = array_rand($ages);//définiton des ages 'aléatoires'
+
+    	$personnage = new Character();//création du personnage et de ses attributs 
+        $personnage->id = $id;
+        $personnage->prenom = $prenoms[$aleatoire];//prénom aléatoire dans la liste
+        $personnage->age = $ages[$aleatoire2];//age aléatoire dans la liste
+        $personnage->type = 'participant.e aux 24h';
+
+    	$jsonPersonnage = $serializer->serialize($personnage, 'json');//sérialisation de l'objet
+
+    	return new Response($jsonPersonnage);//affichage de l'objet, j'ai essayé en json mais bug d'affichage des caractères spéciaux et pas moyen de le régler
+
+    	}	
+    	else { // pareil que le if mais avec age et type qui change
+
+    	$ages = array(1,50,24,58,28,2,65,98,56,71);
+    	$aleatoire2 = array_rand($ages);
+
+    	$personnage = new Character();
+        $personnage = new Character();
+        $personnage->id = $id;
+        $personnage->prenom = $prenoms[$aleatoire];
+        $personnage->age = $ages[$aleatoire2];
+        $personnage->type = 'normal.e';
+
+    	$jsonPersonnage = $serializer->serialize($personnage, 'json');
+
+    	return new Response($jsonPersonnage); 
+
+
+    }
+    	
+    }
+}
