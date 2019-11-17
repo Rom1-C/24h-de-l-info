@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+
+class InfoController extends AbstractController
+{
+
+	/**
+    * @Route("/info/feedtheram")
+    */
+
+    public function feedtheram()
+    {
+		return new Response("Vous êtes bien tombé.e.");
+    }
+
+    /**
+    * @Route("/info/{prenom}")
+    */
+
+    public function hello($prenom)
+    {
+		return new JsonResponse("hello " . $prenom);
+    }
+
+    /**
+    * @Route("/info")
+    */
+
+    public function bonjour()
+    {
+    	$prenoms = array("Myriam","Guylain","Amelie","Marc","Ocecour");
+    	$aleatoire = array_rand($prenoms);
+        return new Response("Hello inconnu.e, nous avons décidé de vous appeler " .$prenoms[$aleatoire]);
+    }
+
+}
